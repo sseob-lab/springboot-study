@@ -1,4 +1,4 @@
-package com.study.springboot.developer;
+package com.study.springboot.developer.Member.Domain.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
