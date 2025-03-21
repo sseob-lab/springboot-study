@@ -5,7 +5,9 @@ import com.study.springboot.developer.Article.Application.Dto.Request.AddArticle
 import com.study.springboot.developer.Article.Domain.Entity.Article;
 import com.study.springboot.developer.Article.Domain.Repositories.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,5 +42,12 @@ public class ArticleService {
         existingArticle.setContent(request.getContent());
 
         return articleRepository.save(existingArticle);
+    }
+
+    public void delete(Long id) {
+        Article existingArticle = articleRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "존재하지 않는 글입니다."));
+
+        articleRepository.delete(existingArticle);
     }
 }
