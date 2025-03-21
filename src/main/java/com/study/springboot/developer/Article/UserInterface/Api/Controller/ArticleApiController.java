@@ -1,0 +1,27 @@
+package com.study.springboot.developer.Article.UserInterface.Api.Controller;
+
+import com.study.springboot.developer.Article.Application.Dto.Request.UpdateArticleRequest;
+import com.study.springboot.developer.Article.Application.Services.ArticleService;
+import com.study.springboot.developer.Article.Domain.Entity.Article;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@Slf4j
+@RestController
+@RequestMapping("/api")
+public class ArticleApiController {
+    @Autowired
+    ArticleService articleService;
+
+    @PutMapping("/articles/{id}")
+    public ResponseEntity<Article> update(
+            @PathVariable Long id,
+            @RequestBody UpdateArticleRequest request
+    ) {
+        Article updatedArticle = articleService.update(id, request);
+
+        return ResponseEntity.ok().body(updatedArticle);
+    }
+}

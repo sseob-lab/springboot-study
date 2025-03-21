@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -40,5 +41,16 @@ public class ArticleController {
         model.addAttribute("article", article);
 
         return "article";
+    }
+
+    @GetMapping("/new-article")
+    public String newArticle(Model model, @RequestParam Long id) {
+        ArticleViewResponse article = articleService.findById(id)
+                .map(ArticleViewResponse::new)
+                .orElseThrow();
+
+        model.addAttribute("article", article);
+
+        return "newArticle";
     }
 }
