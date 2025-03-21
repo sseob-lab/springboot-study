@@ -4,6 +4,7 @@ import com.study.springboot.developer.Article.Application.Dto.Response.ArticleLi
 import com.study.springboot.developer.Article.Application.Dto.Response.ArticleViewResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.study.springboot.developer.Article.Application.Services.ArticleService;
+import com.study.springboot.developer.Article.Domain.Entity.Article;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,8 +45,10 @@ public class ArticleController {
     }
 
     @GetMapping("/new-article")
-    public String newArticle(Model model, @RequestParam Long id) {
-        ArticleViewResponse article = articleService.findById(id)
+    public String newArticle(Model model, @RequestParam(required = false) Long id) {
+        ArticleViewResponse article = (id == null)
+            ? new ArticleViewResponse(Article.builder().build())
+            : articleService.findById(id)
                 .map(ArticleViewResponse::new)
                 .orElseThrow();
 

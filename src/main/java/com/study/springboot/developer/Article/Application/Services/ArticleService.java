@@ -1,6 +1,7 @@
 package com.study.springboot.developer.Article.Application.Services;
 
 import com.study.springboot.developer.Article.Application.Dto.Request.UpdateArticleRequest;
+import com.study.springboot.developer.Article.Application.Dto.Request.AddArticleRequest;
 import com.study.springboot.developer.Article.Domain.Entity.Article;
 import com.study.springboot.developer.Article.Domain.Repositories.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,16 @@ public class ArticleService {
 
     public Optional<Article> findById(Long id) {
         return articleRepository.findById(id);
+    }
+
+    public Article add(AddArticleRequest request) {
+        Article article = Article.builder()
+                .title(request.getTitle())
+                .content(request.getContent())
+                .author("shim") // TODO: 로그인기능 구현후 수정
+                .build();
+
+        return articleRepository.save(article);
     }
 
     public Article update(Long id, UpdateArticleRequest request) {
