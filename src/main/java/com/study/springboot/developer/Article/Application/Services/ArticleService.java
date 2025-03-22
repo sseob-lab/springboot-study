@@ -26,13 +26,7 @@ public class ArticleService {
     }
 
     public Article add(AddArticleRequest request) {
-        Article article = Article.builder()
-                .title(request.getTitle())
-                .content(request.getContent())
-                .author("shim") // TODO: 로그인기능 구현후 수정
-                .build();
-
-        return articleRepository.save(article);
+        return articleRepository.save(request.toEntity());
     }
 
     public Article update(Long id, UpdateArticleRequest request) {
