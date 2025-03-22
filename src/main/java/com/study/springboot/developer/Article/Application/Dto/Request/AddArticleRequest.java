@@ -1,15 +1,11 @@
 package com.study.springboot.developer.Article.Application.Dto.Request;
 
 import com.study.springboot.developer.Article.Domain.Entity.Article;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
-@Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class AddArticleRequest {
     private String title;
     private String content;
