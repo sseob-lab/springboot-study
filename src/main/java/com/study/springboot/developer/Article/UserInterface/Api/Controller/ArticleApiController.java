@@ -6,6 +6,7 @@ import com.study.springboot.developer.Article.Application.Services.ArticleServic
 import com.study.springboot.developer.Article.Domain.Entity.Article;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,7 @@ public class ArticleApiController {
     public ResponseEntity<Article> add(@RequestBody AddArticleRequest request) {
         Article createdArticle = articleService.add(request);
 
-        return ResponseEntity.ok().body(createdArticle);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdArticle);
     }
 
     @PutMapping("/articles/{id}")

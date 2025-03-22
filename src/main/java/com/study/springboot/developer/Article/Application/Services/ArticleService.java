@@ -4,6 +4,7 @@ import com.study.springboot.developer.Article.Application.Dto.Request.UpdateArti
 import com.study.springboot.developer.Article.Application.Dto.Request.AddArticleRequest;
 import com.study.springboot.developer.Article.Domain.Entity.Article;
 import com.study.springboot.developer.Article.Domain.Repositories.ArticleRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -26,22 +27,19 @@ public class ArticleService {
     }
 
     public Article add(AddArticleRequest request) {
-        Article article = Article.builder()
-                .title(request.getTitle())
-                .content(request.getContent())
-                .author("shim") // TODO: 로그인기능 구현후 수정
-                .build();
-
-        return articleRepository.save(article);
+        return articleRepository.save(request.toEntity());
     }
 
+    @Transactional
     public Article update(Long id, UpdateArticleRequest request) {
-        Article existingArticle = articleRepository.findById(id).orElseThrow();
+        Article article = articleRepository.findById(id).orElseThrow();
 
-        existingArticle.setTitle(request.getTitle());
-        existingArticle.setContent(request.getContent());
+        article.update(
+            request.getTitle(),
+            request.getContent()
+        );
 
-        return articleRepository.save(existingArticle);
+        return article;
     }
 
     public void delete(Long id) {
