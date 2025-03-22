@@ -35,7 +35,7 @@ public class ArticleApiController {
     }
 
     @DeleteMapping("/articles/{id}")
-    public ResponseEntity<Void> update(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         articleService.delete(id);
 
         return ResponseEntity.ok().build();
