@@ -1,17 +1,20 @@
 package com.study.springboot.developer.Article.Infra.Repositories;
 
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.study.springboot.developer.Article.Domain.Entity.Article;
+import com.study.springboot.developer.Article.Domain.Entity.QArticle;
 import com.study.springboot.developer.Article.Domain.Repositories.ArticleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
+@AllArgsConstructor
 public class ArticleRepositoryImpl implements ArticleRepository {
-    @Autowired
-    private ArticleJpaRepository articleJpaRepository;
+    private final ArticleJpaRepository articleJpaRepository;
+    private final JPAQueryFactory jpaQueryFactory;
 
     @Override
     public List<Article> findAll() {
@@ -20,7 +23,11 @@ public class ArticleRepositoryImpl implements ArticleRepository {
 
     @Override
     public Optional<Article> findById(Long id) {
-        return articleJpaRepository.findById(id);
+        Article article = jpaQueryFactory.selectFrom(QArticle.article)
+            .where(QArticle.article.id.eq(id))
+            .fetchFirst();
+
+        return Optional.ofNullable(article);
     }
 
     @Override
