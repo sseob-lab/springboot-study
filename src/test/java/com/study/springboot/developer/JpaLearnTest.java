@@ -1,7 +1,7 @@
 package com.study.springboot.developer;
 
-import com.study.springboot.developer.Article.Domain.Entity.Article;
-import com.study.springboot.developer.Article.Domain.Repositories.ArticleRepository;
+import com.study.springboot.developer.article.domain.entity.Article;
+import com.study.springboot.developer.article.domain.repositories.ArticleRepository;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
