@@ -1,4 +1,4 @@
-package com.study.springboot.developer.Article.Domain.Entity;
+package com.study.springboot.developer.article.domain.entity;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
