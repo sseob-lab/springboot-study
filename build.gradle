@@ -17,12 +17,17 @@ dependencies {
         'org.springframework.boot:spring-boot-starter-web',
         'org.springframework.boot:spring-boot-starter-jdbc',
         'org.springframework.boot:spring-boot-starter-data-jpa',
+        'org.springframework.boot:spring-boot-starter-security',
         'org.springframework.boot:spring-boot-starter-thymeleaf',
+        'org.thymeleaf.extras:thymeleaf-extras-springsecurity6',
+        'io.jsonwebtoken:jjwt-api:0.12.3',
         'com.querydsl:querydsl-jpa:5.0.0:jakarta'
     )
   
     runtimeOnly(
-        'mysql:mysql-connector-java:8.0.30'
+        'mysql:mysql-connector-java:8.0.30',
+        'io.jsonwebtoken:jjwt-impl:0.12.3',
+        'io.jsonwebtoken:jjwt-jackson:0.12.3'
     )
 
     compileOnly ('org.projectlombok:lombok')
@@ -35,6 +40,7 @@ dependencies {
     )
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
     testImplementation 'org.assertj:assertj-core:3.24.2'
 }
 
