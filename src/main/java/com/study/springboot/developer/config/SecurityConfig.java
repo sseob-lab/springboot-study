@@ -1,7 +1,6 @@
 package com.study.springboot.developer.config;
 
 import com.study.springboot.developer.user.application.services.UserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,19 +11,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-@RequiredArgsConstructor
 @Configuration
 public class SecurityConfig {
-    private UserService userService;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public PasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public AuthenticationManager authenticationManager(UserService userService, PasswordEncoder bCryptPasswordEncoder) {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(userService);
         authenticationProvider.setPasswordEncoder(bCryptPasswordEncoder);
